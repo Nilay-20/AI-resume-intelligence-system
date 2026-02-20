@@ -127,3 +127,6 @@ htmlcov/
 # ==============================
 *.sqlite3
 db.sqlite3
+
+
+market_cache/*
