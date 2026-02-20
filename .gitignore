@@ -1,4 +1,129 @@
-venv/
+# ==============================
+# Python
+# ==============================
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ==============================
+# Virtual Environment
+# ==============================
+venv/
+env/
+ENV/
+.venv/
+venv.bak/
+
+# ==============================
+# Environment Variables
+# ==============================
 .env
+.env.*
+*.env
+venv/
+env/
+ENV/
+.venv/
+my_env/
+
+# ==============================
+# Streamlit
+# ==============================
+.streamlit/secrets.toml
+
+# ==============================
+# Jupyter Notebook
+# ==============================
+.ipynb_checkpoints/
+
+# ==============================
+# Logs
+# ==============================
+logs/
+*.log
+
+# ==============================
+# OS Files
+# ==============================
+.DS_Store
+Thumbs.db
+
+# ==============================
+# IDEs & Editors
+# ==============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==============================
+# Model & Embedding Cache
+# ==============================
+models/
+checkpoints/
+cache/
+hf_cache/
+sentence_transformers/
+*.bin
+*.pt
+*.pth
+
+# ==============================
+# FAISS / Vector DB (Future)
+# ==============================
+faiss_index/
+vector_store/
+*.faiss
+*.index
+
+# ==============================
+# Uploaded Files / Resumes
+# ==============================
+uploads/
+data/
+resumes/
+temp/
+tmp/
+
+# ==============================
+# Output Files
+# ==============================
+outputs/
+results/
+*.csv
+
+# ==============================
+# AWS / Deployment
+# ==============================
+*.pem
+*.key
+.aws/
+
+# ==============================
+# Testing
+# ==============================
+.pytest_cache/
+coverage/
+htmlcov/
+
+# ==============================
+# Misc
+# ==============================
+*.sqlite3
+db.sqlite3
