@@ -2,7 +2,6 @@ from app.parser import extract_texts_from_folder
 from app.processor import clean_text
 from app.embedder import Embedder
 from app.section_parser import extract_sections
-from app.ranker import rank_resumes_by_sections
 from app.ranker_explainable import rank_resumes_explainable
 
 import sys
@@ -66,13 +65,35 @@ job_embedding = embedder.embed_text(clean_text(job_description))
 # for i, (name, score) in enumerate(ranked, start=1):
 #     print(f"{i}. {name} -> Score: {score:.4f}")
 
-print(resume_sections_map)
+# print(resume_sections_map)
 ranked = rank_resumes_explainable(
     resume_sections_map,
     embedder,
-    job_embedding
+    job_embedding,
+    job_description
 )
 
-print("\n===== EXPLAINABLE RANKING =====")
-for i, item in enumerate(ranked, start=1):
-    print(f"{i}. {item['resume']} \n   Score: {item['score']:.4f} \n   Best Section: {item['best_section']}\n")
+def print_ranked_results(ranked):
+
+    print("\n" + "=" * 70)
+    print("📊 RESUME RANKING RESULTS")
+    print("=" * 70)
+
+    for i, res in enumerate(ranked, start=1):
+
+        print(f"\nRank #{i}")
+        print("-" * 50)
+
+        print(f"Resume        : {res['resume']}")
+        print(f"Final Score   : {res['final_score']:.4f}")
+        print(f"JD Score      : {res['jd_score']:.4f}")
+        print(f"Market Score  : {res['market_score']:.4f}")
+        print(f"Best Section  : {res['best_section']}")
+
+        print("\nSection Breakdown:")
+        for section, score in res["section_scores"].items():
+            print(f"   {section:<15} → {score:.4f}")
+
+    print("\n" + "=" * 70)
+
+print_ranked_results(ranked)
