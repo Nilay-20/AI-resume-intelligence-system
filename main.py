@@ -3,6 +3,8 @@ from app.processor import clean_text
 from app.embedder import Embedder
 from app.section_parser import extract_sections
 from app.ranker_explainable import rank_resumes_explainable
+from app.shortlisting.threshold_shortlisting import apply_shortlisting
+from app.export.csv_exporter import export_results_to_csv
 
 import sys
 import io
@@ -73,6 +75,7 @@ ranked = rank_resumes_explainable(
     job_description
 )
 
+results = apply_shortlisting(ranked)
 def print_ranked_results(ranked):
 
     print("\n" + "=" * 70)
@@ -89,6 +92,7 @@ def print_ranked_results(ranked):
         print(f"JD Score      : {res['jd_score']:.4f}")
         print(f"Market Score  : {res['market_score']:.4f}")
         print(f"Best Section  : {res['best_section']}")
+        print(f"Decision      : {res['status']}")
 
         print("\nSection Breakdown:")
         for section, score in res["section_scores"].items():
@@ -96,4 +100,4 @@ def print_ranked_results(ranked):
 
     print("\n" + "=" * 70)
 
-print_ranked_results(ranked)
+export_results_to_csv(results)
