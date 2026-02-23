@@ -5,6 +5,7 @@ from app.section_parser import extract_sections
 from app.ranker_explainable import rank_resumes_explainable
 from app.shortlisting.threshold_shortlisting import apply_shortlisting
 from app.export.csv_exporter import export_results_to_csv
+from app.justification.batch_justifier import BatchJustificationGenerator
 
 import sys
 import io
@@ -76,28 +77,47 @@ ranked = rank_resumes_explainable(
 )
 
 results = apply_shortlisting(ranked)
-def print_ranked_results(ranked):
+# def print_ranked_results(ranked):
 
-    print("\n" + "=" * 70)
-    print("📊 RESUME RANKING RESULTS")
-    print("=" * 70)
+#     print("\n" + "=" * 70)
+#     print("📊 RESUME RANKING RESULTS")
+#     print("=" * 70)
 
-    for i, res in enumerate(ranked, start=1):
+#     for i, res in enumerate(ranked, start=1):
 
-        print(f"\nRank #{i}")
-        print("-" * 50)
+#         print(f"\nRank #{i}")
+#         print("-" * 50)
 
-        print(f"Resume        : {res['resume']}")
-        print(f"Final Score   : {res['final_score']:.4f}")
-        print(f"JD Score      : {res['jd_score']:.4f}")
-        print(f"Market Score  : {res['market_score']:.4f}")
-        print(f"Best Section  : {res['best_section']}")
-        print(f"Decision      : {res['status']}")
+#         print(f"Resume        : {res['resume']}")
+#         print(f"Final Score   : {res['final_score']:.4f}")
+#         print(f"JD Score      : {res['jd_score']:.4f}")
+#         print(f"Market Score  : {res['market_score']:.4f}")
+#         print(f"Best Section  : {res['best_section']}")
+#         print(f"Decision      : {res['status']}")
 
-        print("\nSection Breakdown:")
-        for section, score in res["section_scores"].items():
-            print(f"   {section:<15} → {score:.4f}")
+#         print("\nSection Breakdown:")
+#         for section, score in res["section_scores"].items():
+#             print(f"   {section:<15} → {score:.4f}")
 
-    print("\n" + "=" * 70)
+#     print("\n" + "=" * 70)
+
+justifier = BatchJustificationGenerator()
+
+justifications = justifier.generate(
+    results,
+    job_description,
+    resume_sections_map
+)
+
+just_map = {
+    j["resume"]: j["justification"]
+    for j in justifications
+}
+
+for res in results:
+    res["justification"] = just_map.get(
+        res["resume"],
+        ""
+    )
 
 export_results_to_csv(results)
