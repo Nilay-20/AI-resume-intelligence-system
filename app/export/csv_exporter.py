@@ -31,7 +31,8 @@ def export_results_to_csv(results: list, filename: str = None):
             "JD Score",
             "Market Score",
             "Status",
-            "Best Section"
+            "Best Section",
+            "AI Justification"
         ])
 
         # ---------- ROWS ----------
@@ -44,7 +45,8 @@ def export_results_to_csv(results: list, filename: str = None):
                 round(res["jd_score"], 4),
                 round(res["market_score"], 4),
                 res["status"],
-                res["best_section"]
+                res["best_section"],
+                res.get("justification", "")
             ])
 
     print(f"\nResults exported to: {filepath}")
