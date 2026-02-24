@@ -21,7 +21,7 @@ ROLE_STOP_WORDS = [
     "who", "with", "to", "for",
     "responsible", "having",
     "required", "needed",
-    "that", "and" , "location"
+    "that", "and" , "location" , "we"
 ]
 
 
