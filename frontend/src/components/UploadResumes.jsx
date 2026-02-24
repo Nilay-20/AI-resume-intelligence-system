@@ -64,12 +64,13 @@ function UploadResumes({ jobId }) {
         type="file"
         multiple
         accept=".pdf"
+        classname="border p-3 rounded w-full"
         onChange={handleFileChange}
       />
 
       <br /><br />
 
-      <button onClick={uploadFiles}>
+      <button className="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition" onClick={uploadFiles}>
         {uploading ? "Uploading..." : "Upload Resumes"}
       </button>
 

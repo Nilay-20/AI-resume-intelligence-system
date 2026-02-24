@@ -12,39 +12,72 @@ function App() {
   const [completed, setCompleted] = useState(false);
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="min-h-screen bg-gray-100">
 
-      <h1>AI Resume Screening Dashboard</h1>
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-6xl mx-auto p-6">
+          <h1 className="text-3xl font-bold">
+            AI Resume Screening Dashboard
+          </h1>
+        </div>
+      </div>
 
-      <CreateJob setJobId={setJobId} />
+      {/* Content */}
+      <div className="max-w-6xl mx-auto p-8 space-y-6">
 
-      {jobId && (
-        <>
-          <p><b>Active Job:</b> {jobId}</p>
+        <Card>
+          <CreateJob setJobId={setJobId}/>
+        </Card>
 
-          <UploadResumes jobId={jobId} />
+        {jobId && (
+          <>
+            <Card>
+              <p className="font-medium">
+                Active Job:
+                <span className="ml-2 text-blue-600">
+                  {jobId}
+                </span>
+              </p>
+            </Card>
 
-          <StartEvaluation
-            jobId={jobId}
-            setActiveJob={setActiveJob}
-          />
-        </>
-      )}
+            <Card>
+              <UploadResumes jobId={jobId}/>
+            </Card>
 
-      {activeJob && !completed && (
-        <ProgressTracker
-          jobId={activeJob}
-          setCompleted={setCompleted}
-        />
-      )}
+            <Card>
+              <StartEvaluation
+                jobId={jobId}
+                setActiveJob={setActiveJob}
+              />
+            </Card>
+          </>
+        )}
 
-      {completed && (
-        <>
-          <h3>✅ Evaluation Completed</h3>
-          <ResultsTable jobId={activeJob} />
-        </>
-      )}
+        {activeJob && !completed && (
+          <Card>
+            <ProgressTracker
+              jobId={activeJob}
+              setCompleted={setCompleted}
+            />
+          </Card>
+        )}
 
+        {completed && (
+          <Card>
+            <ResultsTable jobId={activeJob}/>
+          </Card>
+        )}
+
+      </div>
+    </div>
+  );
+}
+
+function Card({ children }) {
+  return (
+    <div className="bg-white rounded-xl shadow-md p-6">
+      {children}
     </div>
   );
 }
