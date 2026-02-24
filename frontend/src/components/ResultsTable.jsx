@@ -62,31 +62,42 @@ function ResultsTable({ jobId }) {
 
       <h2>Candidate Rankings</h2>
 
-      <button onClick={downloadCSV}>
+      <button className="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition" onClick={downloadCSV}> 
         Download CSV Report
       </button>
 
       <br /><br />
 
-      <table border="1" cellPadding="10">
+      <table classname="w-full border-collapse">
 
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Resume</th>
-            <th>Final Score</th>
-            <th>Status</th>
-            <th>Best Section</th>
+            <th classname="p-3 text-left">Rank</th>
+            <th classname="p-3 text-left">Resume</th>
+            <th classname="p-3 text-left">Final Score</th>
+            <th classname="p-3 text-left">Status</th>
+            <th classname="p-3 text-left">Best Section</th>
           </tr>
         </thead>
 
         <tbody>
           {results.map((res, index) => (
-            <tr key={index}>
+            <tr key={index} classname="border-t hover:bg-gray-50">
               <td>{index + 1}</td>
               <td>{res.resume}</td>
               <td>{res.final_score?.toFixed(3)}</td>
-              <td>{res.status}</td>
+              <td>
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium
+                        ${res.status === "Shortlisted"
+                          ? "bg-green-100 text-green-700"
+                          : res.status === "Review"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
+                        }
+                      `}>
+                        {res.status}
+                      </span>
+                    </td>
               <td>{res.best_section}</td>
             </tr>
           ))}

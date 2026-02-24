@@ -54,11 +54,19 @@ function StartEvaluation({ jobId, setActiveJob }) {
         placeholder="Paste Job Description..."
         value={jd}
         onChange={(e) => setJd(e.target.value)}
+        classname="
+        w-full 
+        border
+        rounded-lg 
+        p-3 
+        focus:outline-none 
+        focus:ring-2 
+        focus:ring-blue-400"
       />
 
       <br /><br />
 
-      <button onClick={startEvaluation}>
+      <button className="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition" onClick={startEvaluation}>
         {loading ? "Starting..." : "Start Evaluation"}
       </button>
 
