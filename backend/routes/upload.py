@@ -1,40 +1,33 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Form
 from typing import List
 import os
 import shutil
 
-router = APIRouter()
-
-UPLOAD_DIR = "storage/uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+router = APIRouter(prefix="/files", tags=["Upload"])
 
 
 @router.post("/upload-resumes")
-async def upload_resumes(files: List[UploadFile] = File(...)):
-    """
-    Upload multiple resume PDFs
-    """
+async def upload_resumes(
+    job_id: str = Form(...),
+    files: List[UploadFile] = File(...)
+):
 
-    uploaded_files = []
+    upload_dir = f"storage/jobs/{job_id}/uploads"
+    os.makedirs(upload_dir, exist_ok=True)
+
+    uploaded = []
 
     for file in files:
-        if not file.filename.endswith(".pdf"):
-            continue
-        file_path = os.path.join(
-            UPLOAD_DIR,
-            file.filename
-        )
 
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(
-                file.file,
-                buffer
-            )
+        path = os.path.join(upload_dir, file.filename)
 
-        uploaded_files.append(file.filename)
+        with open(path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        uploaded.append(file.filename)
 
     return {
-    "message": "Upload successful",
-    "total_uploaded": len(uploaded_files),
-    "files": uploaded_files
+        "message": "Uploaded successfully",
+        "job_id": job_id,
+        "files": uploaded
     }

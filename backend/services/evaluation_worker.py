@@ -12,6 +12,7 @@ def evaluation_task(job_id, job_description):
 
     result = run_evaluation(
         job_description,
+        job_id,
         progress_callback=progress
     )
 

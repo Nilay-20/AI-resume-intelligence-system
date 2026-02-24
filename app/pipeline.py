@@ -6,16 +6,14 @@ from app.ranker_explainable import rank_resumes_explainable
 from app.shortlisting.threshold_shortlisting import apply_shortlisting
 from app.justification.batch_justifier import BatchJustificationGenerator
 from app.export.csv_exporter import export_results_to_csv
-
+import os
 import sys
 import io
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-UPLOAD_DIR = "storage/uploads"
 
-
-def run_evaluation(job_description: str, progress_callback=None):
+def run_evaluation(job_description: str, job_id: str,progress_callback=None):
 
     embedder = Embedder()
 
@@ -24,10 +22,10 @@ def run_evaluation(job_description: str, progress_callback=None):
     # -----------------------------
     if progress_callback:
         progress_callback("parsing", "Parsing resumes")
-    resume_texts = extract_texts_from_folder(
-        UPLOAD_DIR
-    )
 
+    upload_dir = os.path.join("storage","jobs",job_id,"uploads")
+
+    resume_texts = extract_texts_from_folder(upload_dir)
     resume_sections_map = {}
 
     for name, text in resume_texts.items():
