@@ -1,5 +1,5 @@
 import os
-
+import re
 
 BASE_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../")
@@ -7,16 +7,25 @@ BASE_DIR = os.path.abspath(
 
 CACHE_DIR = os.path.join(BASE_DIR, "market_cache")
 
-def normalize_role(role: str) -> str:
+def sanitize_role(role: str) -> str:
     """
-    Convert role into safe filename.
+    Convert role name into safe filename.
     """
-    return role.lower().replace(" ", "_")
 
+    # replace illegal characters
+    role = re.sub(r'[<>:"/\\|?*]', "_", role)
+
+    # replace spaces
+    role = role.replace(" ", "_")
+
+    # lowercase for consistency
+    role = role.lower()
+
+    return role
 
 def get_cache_path(role: str):
 
-    filename = normalize_role(role) + ".txt"
+    filename = sanitize_role(role) + ".txt"
     return os.path.join(CACHE_DIR, filename)
 
 
