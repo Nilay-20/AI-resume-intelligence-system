@@ -6,7 +6,7 @@ Transformer-based resume screening pipeline with explainable section-level scori
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
 [![SentenceTransformers](https://img.shields.io/badge/SentenceTransformers-all--MiniLM--L6--v2-FF6F00?style=flat-square)](https://sbert.net)
-[![FAISS](https://img.shields.io/badge/FAISS-Vector_Ready-DC143C?style=flat-square)](https://github.com/facebookresearch/faiss)
+
 
 ---
 
@@ -51,7 +51,6 @@ Ranked Output + Explainability Metadata + CSV Report
 - Infers job role from the JD and runs a RAG pipeline to synthesize real-world market expectations, embedding them into the same vector space for competitiveness scoring
 - Final score: `0.7 × JD similarity + 0.3 × market alignment`
 - Async evaluation pipeline via FastAPI Background Tasks — non-blocking, job-isolated, supports batch processing
-- FAISS vector store interface ready for ANN search at scale
 - React dashboard for upload, live progress polling, ranked visualization, and CSV export
 
 ---
@@ -64,7 +63,6 @@ Ranked Output + Explainability Metadata + CSV Report
 | Embedding Model | SentenceTransformers `all-MiniLM-L6-v2` |
 | Similarity | Cosine Similarity — scikit-learn |
 | RAG Pipeline | Role inference + LLM market synthesis |
-| Vector Search | FAISS (flat index, HNSW-ready) |
 | Backend | FastAPI + Background Tasks |
 | Storage | Job-isolated filesystem |
 | Frontend | React + Tailwind CSS |
@@ -85,15 +83,11 @@ Resume_ranker/
 │   ├── ranker_explainable.py       # Section scoring and ranked output
 │   │
 │   ├── market_intelligence/
-│   │   ├── role_detector.py        # JD role inference
-│   │   ├── market_pipeline.py      # RAG orchestration
-│   │   ├── market_generator.py     # LLM market context synthesis
-│   │   └── market_cache.py         # Market embedding cache
-│   │
-│   └── vector_store/
-│       ├── faiss_index.py          # FAISS abstraction layer
-│       └── resume_vectorizer.py    # Resume vector construction
-│
+│       ├── role_detector.py        # JD role inference
+│       ├── market_pipeline.py      # RAG orchestration
+│       ├── market_generator.py     # LLM market context synthesis
+│       └── market_cache.py         # Market embedding cache
+│   
 ├── backend/
 │   ├── main.py                     # FastAPI entrypoint
 │   ├── routes/                     # Endpoint definitions
@@ -158,7 +152,6 @@ npm run dev
 
 ## Roadmap
 
-- Swap flat FAISS index for HNSW-based ANN search for large candidate pools
 - Cross-encoder re-ranking layer for top-K precision improvement
 - Fine-tune embedding model on hiring-domain corpora
 - Migrate market RAG to persistent retrieval corpus
