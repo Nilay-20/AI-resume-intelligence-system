@@ -1,34 +1,45 @@
 import { useState } from "react";
 import API from "../api/api";
 
-function CreateJob({ setJobId }) {
-
+function CreateJob({ setJobId, showToast }) {
   const [loading, setLoading] = useState(false);
 
   const createJob = async () => {
     try {
       setLoading(true);
-
       const response = await API.post("/job/create");
-
-      const id = response.data.job_id;
-
-      setJobId(id);
-
+      setJobId(response.data.job_id);
+      showToast("Job session initialized", "success");
     } catch (error) {
       console.error(error);
-      alert("Failed to create job");
+      showToast("Failed to create job", "error");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ marginBottom: "20px" }}>
-      <button className="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition" onClick={createJob}>
-        {loading ? "Creating..." : "Create Hiring Job"}
-      </button>
-    </div>
+    <button
+      onClick={createJob}
+      disabled={loading}
+      className={`flex items-center gap-2 px-4 py-2 rounded border text-xs font-bold uppercase tracking-widest transition-all
+        ${loading
+          ? "border-gray-700 text-gray-600 cursor-not-allowed"
+          : "border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white"
+        }`}
+    >
+      {loading ? (
+        <>
+          <span className="w-3 h-3 rounded-full border border-gray-500 border-t-transparent animate-spin" />
+          Initializing...
+        </>
+      ) : (
+        <>
+          <span className="text-base leading-none">+</span>
+          New Hiring Session
+        </>
+      )}
+    </button>
   );
 }
 
