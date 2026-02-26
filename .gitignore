@@ -20,7 +20,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
+*.pyc
 # ==============================
 # Virtual Environment
 # ==============================
@@ -29,6 +29,7 @@ env/
 ENV/
 .venv/
 venv.bak/
+venv311/
 
 # ==============================
 # Environment Variables
@@ -41,6 +42,7 @@ env/
 ENV/
 .venv/
 my_venv/
+.env/
 
 # ==============================
 # Streamlit
