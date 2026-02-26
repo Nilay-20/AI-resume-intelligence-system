@@ -104,8 +104,8 @@ Resume_ranker/
 ## Quickstart
 
 ```bash
-git clone https://github.com/Nilay-20/Resume_ranker.git
-cd Resume_ranker
+git clone https://github.com/Nilay-20/AI-resume-intelligence-system.git
+cd AI-resume-intelligence-system
 
 # Backend
 python -m venv venv
