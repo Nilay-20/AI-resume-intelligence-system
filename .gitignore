@@ -134,3 +134,4 @@ db.sqlite3
 market_cache/*
 node_modules/
 storage/
+venv311/share/jupyter/nbextensions/pydeck/index.js.map
