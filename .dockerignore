@@ -1,0 +1,9 @@
+venv311/
+venv/
+my_venv/
+node_modules/
+frontend/
+storage/
+market_cache/
+__pycache__/
+.git
