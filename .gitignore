@@ -132,3 +132,5 @@ db.sqlite3
 
 
 market_cache/*
+node_modules/
+storage/
