@@ -1,4 +1,11 @@
-# AI Resume Intelligence System
+---
+title: AI Resume Intelligence System
+emoji: 🤖
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
 
 Transformer-based resume screening pipeline with explainable section-level scoring and retrieval-augmented market alignment.
 
