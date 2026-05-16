@@ -1,3 +1,4 @@
+<!--
 ---
 title: AI Resume Intelligence System
 emoji: 🤖
@@ -6,7 +7,8 @@ colorTo: indigo
 sdk: docker
 pinned: false
 ---
-
+-->
+# AI Resume Intelligence System
 Transformer-based resume screening pipeline with explainable section-level scoring and retrieval-augmented market alignment.
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
