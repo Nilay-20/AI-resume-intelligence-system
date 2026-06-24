@@ -20,10 +20,11 @@ app.include_router(results_router)
 app.include_router(download_router)
 app.include_router(job_router)
 
+origins = ["https://ai-resume-intelligence-system.vercel.app"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # dev only
+    allow_origins=origins,  # dev only
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=['GET','POST'],
     allow_headers=["*"],
 )
